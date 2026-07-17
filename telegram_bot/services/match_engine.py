@@ -87,11 +87,17 @@ async def create_match(
     # Validate players are not already in a match
     p1_match = await db_get_active_match_for_player(player1_id)
     p2_match = await db_get_active_match_for_player(player2_id)
+   
+    logger.info(f"CHECK MATCH: p1={player1_id} p2={player2_id} p1_match={p1_match} p2_match={p2_match}")
+
     if p1_match or p2_match:
         return False, "player_busy", None
 
     p1 = await db_get_player(player1_id)
     p2 = await db_get_player(player2_id)
+
+    logger.info(f"PLAYERS: p1={p1} p2={p2}")
+
     if not p1 or not p2:
         return False, "player_not_found", None
 

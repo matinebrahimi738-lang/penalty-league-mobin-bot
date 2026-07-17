@@ -1,3 +1,4 @@
+":
 """
 Admin panel handlers:
   - 
@@ -219,34 +220,25 @@ async def admin_confirm_match(callback: CallbackQuery, state: FSMContext, bot: B
     await state.clear()
 
     if not ok:
-        if reason == "player_busy":
-            msg = "⚠️ یکی از بازیکنان در یک مسابقه فعال است."
-        else:
-            msg = f"❌ خطا: {reason}"
-
-        await callback.message.edit_text(
-            msg,
-            reply_markup=keyboards.back_to_admin(),
-            parse_mode="HTML"
-        )
-        return
+        	if reason == "player_busy":
+    msg = "بازیکن در مسابقه قبلی است"
+else:
+    msg = f"خطا: {reason}"
+        await callback.message.edit_text(msg, reply_markup=keyboards.back_to_admin(), parse_mod
 
     p1 = await get_player(p1_id)
     p2 = await get_player(p2_id)
-
     await callback.message.edit_text(
-
-texts.ADMIN_MATCH_CREATED.format(
+        texts.ADMIN_MATCH_CREATED.format(
             match_id=match_id,
-            p1_flag=p1.team_flag if p1 
-else "",
+            p1_flag=p1.team_flag if p1 else "",
             p1_team=p1.team_name if p1 else "",
             p2_flag=p2.team_flag if p2 else "",
             p2_team=p2.team_name if p2 else "",
-    ),
-    reply_markup=keyboards.back_to_admin(),
-    parse_mode="HTML",
-)
+        ),
+        reply_markup=keyboards.back_to_admin(),
+        parse_mode="HTML",
+    )
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
