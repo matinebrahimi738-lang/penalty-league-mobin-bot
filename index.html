@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🏆 Penalty League Mobin — PLM Bot</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
+
+    * { font-family: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif; }
+
+    body {
+      background: #0a0e1a;
+      color: #e2e8f0;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #f59e0b, #ef4444, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .gradient-green {
+      background: linear-gradient(135deg, #10b981, #059669);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .card {
+      background: linear-gradient(135deg, #111827, #1f2937);
+      border: 1px solid #374151;
+      border-radius: 16px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .glow-green { box-shadow: 0 0 30px rgba(16, 185, 129, 0.2); }
+    .glow-amber { box-shadow: 0 0 30px rgba(245, 158, 11, 0.2); }
+    .glow-purple { box-shadow: 0 0 30px rgba(139, 92, 246, 0.2); }
+    .glow-red { box-shadow: 0 0 30px rgba(239, 68, 68, 0.2); }
+
+    .hero-bg {
+      background: radial-gradient(ellipse at 50% 0%, rgba(16,185,129,0.15) 0%, transparent 70%),
+                  radial-gradient(ellipse at 100% 50%, rgba(139,92,246,0.1) 0%, transparent 60%),
+                  radial-gradient(ellipse at 0% 100%, rgba(245,158,11,0.1) 0%, transparent 60%),
+                  #0a0e1a;
+    }
+
+    .tab-btn { transition: all 0.2s; }
+    .tab-btn.active {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+    }
+
+    .code-block {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      direction: ltr;
+      text-align: left;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .phone-mockup {
+      background: #1a1a2e;
+      border: 3px solid #374151;
+      border-radius: 32px;
+      padding: 20px;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+
+    .chat-bubble-bot {
+      background: #1e3a5f;
+      border-radius: 12px 12px 12px 0;
+      padding: 10px 14px;
+      margin: 6px 0;
+      max-width: 85%;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .chat-bubble-player {
+      background: #1a4731;
+      border-radius: 12px 12px 0 12px;
+      padding: 10px 14px;
+      margin: 6px 0 6px auto;
+      max-width: 85%;
+      font-size: 14px;
+      text-align: right;
+    }
+
+    .inline-btn {
+      background: #1e3a5f;
+      border: 1px solid #2563eb;
+      border-radius: 8px;
+      padding: 6px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-block;
+      margin: 3px;
+    }
+    .inline-btn:hover { background: #2563eb; }
+
+    .form-circle {
+      display: inline-block;
+      font-size: 18px;
+      margin: 0 2px;
+    }
+
+    .league-row:hover { background: rgba(16,185,129,0.05); }
+
+    .file-tree-item {
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .file-tree-item:hover { background: rgba(255,255,255,0.05); }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .pulse-dot {
+      width: 10px;
+      height: 10px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+      display: inline-block;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .scroll-fade { animation: fadeInUp 0.5s ease both; }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #111; }
+    ::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+
+    .nav-link {
+      transition: color 0.2s;
+      font-size: 14px;
+    }
+    .nav-link:hover { color: #10b981; }
+
+    .progress-bar {
+      background: linear-gradient(90deg, #10b981, #059669);
+      height: 6px;
+      border-radius: 3px;
+      transition: width 1s ease;
+    }
+
+    .rps-btn {
+      background: linear-gradient(135deg, #1e3a5f, #1e40af);
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 24px;
+      transition: all 0.2s;
+    }
+    .rps-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(59,130,246,0.4);
+    }
+    .rps-btn.selected {
+      background: linear-gradient(135deg, #065f46, #047857);
+      border-color: #10b981;
+      box-shadow: 0 0 20px rgba(16,185,129,0.5);
+    }
+
+    .dir-btn {
+      background: linear-gradient(135deg, #1e3a5f, #1e40af);
+      border: 2px solid #3b82f6;
+      border-radius: 10px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .dir-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(59,130,246,0.4);
+    }
+    .dir-btn.selected {
+      background: linear-gradient(135deg, #065f46, #047857);
+      border-color: #10b981;
+    }
+
+    .match-score {
+      font-size: 3rem;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #374151, transparent);
+      margin: 2rem 0;
+    }
+
+    .tooltip {
+      position: relative;
+    }
+    .tooltip:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: #e2e8f0;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      white-space: nowrap;
+      border: 1px solid #374151;
+    }
+
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    .copy-btn {
+      background: #374151;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      color: #9ca3af;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: #4b5563; color: white; }
+    .copy-btn.copied { background: #065f46; color: #10b981; }
+
+    @media (max-width: 768px) {
+      .stat-number { font-size: 1.8rem; }
+      .match-score { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body class="hero-bg min-h-screen">
+
+  <!-- ═══════════════════ NAVBAR ═══════════════════ -->
+  <nav class="sticky top-0 z-50 border-b border-gray-800" style="background: rgba(10,14,26,0.95); backdrop-filter: blur(12px);">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">🏆</span>
+        <div>
+          <div class="font-bold text-white text-sm">Penalty League Mobin</div>
+          <div class="text-xs text-gray-400">PLM Telegram Bot</div>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-6">
+        <a href="#features" class="nav-link text-gray-400">ویژگی‌ها</a>
+        <a href="#gameplay" class="nav-link text-gray-400">گیم‌پلی</a>
+        <a href="#structure" class="nav-link text-gray-400">ساختار</a>
+        <a href="#deploy" class="nav-link text-gray-400">راه‌اندازی</a>
+        <a href="#demo" class="nav-link text-gray-400">دمو</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="pulse-dot"></span>
+        <span class="text-xs text-green-400">Production Ready</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════ HERO ═══════════════════ -->
+  <section class="max-w-7xl mx-auto px-4 py-16 text-center">
+    <div class="floating text-7xl mb-6">⚽</div>
+    <h1 class="text-5xl md:text-7xl font-black mb-4">
+      <span class="gradient-text">Penalty League</span>
+      <br/>
+      <span class="text-white">Mobin</span>
+    </h1>
+    <p class="text-xl text-gray-400 mb-4 max-w-2xl mx-auto">
+      ربات تلگرام لیگ پنالتی — کاملاً خودکار، فارسی، آماده استقرار
+    </p>
+    <div class="flex flex-wrap justify-center gap-2 mb-8">
+      <span class="badge" style="background:#064e3b; color:#10b981;">Python 3.11</span>
+      <span class="badge" style="background:#1e3a5f; color:#60a5fa;">Aiogram 3.13+</span>
+      <span class="badge" style="background:#1a1a2e; color:#a78bfa;">SQLite</span>
+      <span class="badge" style="background:#3b1a08; color:#fb923c;">Render Ready</span>
+      <span class="badge" style="background:#2d1b69; color:#c4b5fd;">6000+ Lines</span>
+      <span class="badge" style="background:#1a1a2e; color:#f87171;">100% Persian 🇮🇷</span>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-12">
+      <div class="card glow-green p-4 text-center">
+        <div class="stat-number gradient-green">20</div>
+        <div class="text-xs text-gray-400 mt-1">فایل پروژه</div>
+      </div>
+      <div class="card glow-amber p-4 text-center">
+        <div class="stat-number gradient-text">6000+</div>
+        <div class="text-xs text-gray-400 mt-1">خط کد</div>
+      </div>
+      <div class="card glow-purple p-4 text-center">
+        <div class="stat-number" style="background: linear-gradient(135deg,#a78bfa,#7c3aed); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">39</div>
+        <div class="text-xs text-gray-400 mt-1">تیم ملی</div>
+      </div>
+      <div class="card glow-red p-4 text-center">
+        <div class="stat-number" style="background: linear-gradient(135deg,#f87171,#dc2626); -webkit-background-clip:text; -webkit-text-fill-color:transparent;">0</div>
+        <div class="text-xs text-gray-400 mt-1">Rust / Docker</div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-4">
+      <a href="#deploy" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-black" style="background: linear-gradient(135deg, #10b981, #059669);">
+        🚀 راه‌اندازی سریع
+      </a>
+      <a href="#demo" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white border border-gray-600 hover:border-green-500 transition-colors">
+        🎮 مشاهده دمو
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ═══════════════════ FEATURES ═══════════════════ -->
+  <section id="features" class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-black text-center mb-2">✨ ویژگی‌های کامل</h2>
+    <p class="text-gray-400 text-center mb-10">هر چیزی که برای یک لیگ پنالتی نیاز دارید</p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Feature Cards -->
+      <div class="card glow-green p-5">
+        <div class="text-3xl mb-3">⚽</div>
+        <h3 class="font-bold text-white mb-2">گیم‌پلی کامل</h3>
+        <p class="text-gray-400 text-sm">۵ دور پنالتی + Sudden Death در صورت تساوی. شوتزننده و دروازه‌بان جهت انتخاب می‌کنند.</p>
+      </div>
+      <div class="card glow-amber p-5">
+        <div class="text-3xl mb-3">🎲</div>
+        <h3 class="font-bold text-white mb-2">سنگ کاغذ قیچی</h3>
+        <p class="text-gray-400 text-sm">تعیین اولویت شوت از طریق RPS. در صورت تساوی، دوباره انجام می‌شود.</p>
+      </div>
+      <div class="card glow-purple p-5">
+        <div class="text-3xl mb-3">📢</div>
+        <h3 class="font-bold text-white mb-2">کانال خودکار</h3>
+        <p class="text-gray-400 text-sm">تمام رویدادها به‌صورت خودکار در کانال تلگرام منتشر می‌شود. هیچ دستی لازم نیست.</p>
+      </div>
+      <div class="card p-5">
+        <div class="text-3xl mb-3">🏆</div>
+        <h3 class="font-bold text-white mb-2">جدول لیگ زنده</h3>
+        <p class="text-gray-400 text-sm">رتبه‌بندی خودکار با امتیاز، تفاضل گل، برد/باخت/مساوی برای هر بازیکن.</p>
+      </div>
+      <div class="card p-5">
+        <div class="text-3xl mb-3">🔒</div>
+        <h3 class="font-bold text-white mb-2">ضدتقلب پیشرفته</h3>
+        <p class="text-gray-400 text-sm">قفل async، تأیید نقش، جلوگیری از کلیک مضاعف، زمان‌سنج برای هر مرحله.</p>
+      </div>
+      <div class="card p-5">
+        <div class="text-3xl mb-3">📊</div>
+        <h3 class="font-bold text-white mb-2">آمار کامل</h3>
+        <p class="text-gray-400 text-sm">گل، سیو، درصد برد، سری برد، تاریخچه مسابقات برای هر بازیکن.</p>
+      </div>
+      <div class="card p-5">
+        <div class="text-3xl mb-3">⚙️</div>
+        <h3 class="font-bold text-white mb-2">پنل ادمین کامل</h3>
+        <p class="text-gray-400 text-sm">ایجاد مسابقه، مدیریت بازیکنان، ارسال اطلاعیه، تنظیمات — همه با Inline Keyboard.</p>
+      </div>
+      <div class="card p-5">
+        <div class="text-3xl mb-3">🌍</div>
+        <h3 class="font-bold text-white mb-2">۳۹ تیم ملی</h3>
+        <p class="text-gray-400 text-sm">ایران، برزیل، آرژانتین، آلمان و ۳۵ تیم دیگر. هر تیم فقط یک بازیکن.</p>
+      </div>
+      <div class="card p-5">
+        <div class="text-3xl mb-3">🚀</div>
+        <h3 class="font-bold text-white mb-2">آماده Render</h3>
+        <p class="text-gray-400 text-sm">Webhook + Health Check. بدون Docker، بدون Rust، فقط pip install.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ═══════════════════ DEMO ═══════════════════ -->
+  <section id="demo" class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-black text-center mb-2">🎮 دموی تعاملی</h2>
+    <p class="text-gray-400 text-center mb-10">شبیه‌سازی یک مسابقه کامل در ربات</p>
+
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+
+      <!-- Tabs -->
+      <div>
+        <div class="flex gap-2 mb-4 flex-wrap">
+          <button onclick="showDemo('rps')" id="tab-rps" class="tab-btn active px-4 py-2 rounded-lg text-sm font-semibold border border-gray-700">🎲 RPS</button>
+          <button onclick="showDemo('shoot')" id="tab-shoot" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold border border-gray-700 text-gray-400">⚽ شوت</button>
+          <button onclick="showDemo('form')" id="tab-form" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold border border-gray-700 text-gray-400">📊 FORM</button>
+          <button onclick="showDemo('channel')" id="tab-channel" class="tab-btn px-4 py-2 rounded-lg text-sm font-semibold border border-gray-700 text-gray-400">📢 کانال</button>
+        </div>
+
+        <!-- RPS Demo -->
+        <div id="demo-rps" class="card p-6">
+          <h3 class="font-bold text-white mb-4 text-lg">🎲 مرحله سنگ کاغذ قیچی</h3>
+          <p class="text-gray-400 text-sm mb-4">انتخاب کنید تا مشخص شود چه کسی اول شوت می‌زند:</p>
+          <div class="flex gap-3 justify-center mb-6">
+            <button class="rps-btn" id="rps-rock" onclick="pickRPS('rock', this)">🪨<br/><span class="text-xs text-gray-300">سنگ</span></button>
+            <button class="rps-btn" id="rps-paper" onclick="pickRPS('paper', this)">📄<br/><span class="text-xs text-gray-300">کاغذ</span></button>
+            <button class="rps-btn" id="rps-scissors" onclick="pickRPS('scissors', this)">✂️<br/><span class="text-xs text-gray-300">قیچی</span></button>
+          </div>
+          <div id="rps-result" class="text-center text-sm text-gray-500 min-h-[60px] flex items-center justify-center">
+            <span>انتخاب کنید...</span>
+          </div>
+        </div>
+
+        <!-- Shoot Demo -->
+        <div id="demo-shoot" class="card p-6 hidden">
+          <h3 class="font-bold text-white mb-2 text-lg">⚽ Round 3 — نوبت شوت زدن شماست!</h3>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-gray-400 text-sm">🥅 دروازه‌بان:</span>
+            <span class="text-white text-sm font-semibold">🇭🇰 Hong Kong</span>
+          </div>
+          <p class="text-gray-400 text-sm mb-4">👇 جهت شوت خود را انتخاب کنید:</p>
+          <div class="flex gap-3 justify-center mb-4">
+            <button class="dir-btn" onclick="pickDir('left', this, 'shoot')">⬅️<br/><span class="text-xs">چپ</span></button>
+            <button class="dir-btn" onclick="pickDir('center', this, 'shoot')">⬆️<br/><span class="text-xs">وسط</span></button>
+            <button class="dir-btn" onclick="pickDir('right', this, 'shoot')">➡️<br/><span class="text-xs">راست</span></button>
+          </div>
+          <div id="shoot-result" class="text-center text-sm text-gray-500 min-h-[50px] flex items-center justify-center">
+            <span>جهت شوت را انتخاب کنید...</span>
+          </div>
+        </div>
+
+        <!-- Form Demo -->
+        <div id="demo-form" class="card p-6 hidden">
+          <h3 class="font-bold text-white mb-4 text-lg">📊 FORM — وضعیت فعلی</h3>
+          <div class="bg-gray-900 rounded-xl p-4 font-mono">
+            <div class="text-green-400 font-bold mb-3">💯 FORM</div>
+            <div class="mb-3">
+              <div class="flex items-center gap-2 mb-1">
+                <span>🇯🇴</span>
+                <span class="text-white font-bold text-sm">JORDAN</span>
+              </div>
+              <div id="form-p1" class="text-2xl tracking-wider">🟢🔴🟢⚪⚪</div>
+            </div>
+            <div class="mb-4">
+              <div class="flex items-center gap-2 mb-1">
+                <span>🇭🇰</span>
+                <span class="text-white font-bold text-sm">HONG KONG</span>
+              </div>
+              <div id="form-p2" class="text-2xl tracking-wider">🔴🟢🔴⚪⚪</div>
+            </div>
+            <div class="text-yellow-400 text-sm">Round 4 🏆</div>
+            <div class="text-gray-400 text-sm">👇 Give directions</div>
+          </div>
+          <div class="mt-4 grid grid-cols-3 gap-2 text-xs text-center">
+            <div class="bg-gray-800 rounded-lg p-2"><span class="text-2xl">🟢</span><br/><span class="text-gray-400">گل زده</span></div>
+            <div class="bg-gray-800 rounded-lg p-2"><span class="text-2xl">🔴</span><br/><span class="text-gray-400">سیو شد</span></div>
+            <div class="bg-gray-800 rounded-lg p-2"><span class="text-2xl">⚪</span><br/><span class="text-gray-400">نشده</span></div>
+          </div>
+        </div>
+
+        <!-- Channel Demo -->
+        <div id="demo-channel" class="card p-6 hidden">
+          <h3 class="font-bold text-white mb-4 text-lg">📢 پیام‌های خودکار کانال</h3>
+          <div class="space-y-3 max-h-80 overflow-y-auto">
+            <div class="bg-gray-900 rounded-xl p-3 border border-gray-700">
+              <div class="text-xs text-gray-500 mb-1">کانال — ۲ دقیقه پیش</div>
+              <div class="text-sm">🏆 <b class="text-white">مسابقه جدید آغاز شد!</b></div>
+              <div class="text-sm mt-1">🇯🇴 <b class="text-green-300">Jordan</b></div>
+              <div class="text-sm">🆚</div>
+              <div class="text-sm">🇭🇰 <b class="text-blue-300">Hong Kong</b></div>
+            </div>
+            <div class="bg-gray-900 rounded-xl p-3 border border-gray-700">
+              <div class="text-xs text-gray-500 mb-1">کانال — ۱:۴۵ پیش</div>
+              <div class="text-sm">🎲 <b class="text-white">برنده سنگ کاغذ قیچی:</b></div>
+              <div class="text-sm mt-1">🇯🇴 Jordan برنده شد! اول شوت می‌زند. 🥅</div>
+            </div>
+            <div class="bg-gray-900 rounded-xl p-3 border border-gray-700">
+              <div class="text-xs text-gray-500 mb-1">کانال — ۱:۲۰ پیش</div>
+              <div class="text-sm">⚽ <b class="text-white">گللللل!!!</b></div>
+              <div class="text-sm text-green-400">🇯🇴 Jordan گل زد! 🎉</div>
+              <div class="text-sm mt-1">نتیجه: <b class="text-white">1 - 0</b></div>
+            </div>
+            <div class="bg-gray-900 rounded-xl p-3 border border-gray-700">
+              <div class="text-xs text-gray-500 mb-1">کانال — ۵۵ ثانیه پیش</div>
+              <div class="text-sm">🧤 <b class="text-white">سیوووو!!!</b></div>
+              <div class="text-sm text-blue-400">🇭🇰 Hong Kong سیو کرد! 👏</div>
+              <div class="text-sm mt-1">نتیجه: <b class="text-white">1 - 0</b></div>
+            </div>
+            <div class="bg-gray-900 rounded-xl p-3 border border-green-800">
+              <div class="text-xs text-gray-500 mb-1">کانال — همین الان</div>
+              <div class="text-sm">🏁 <b class="text-white">پایان مسابقه!</b></div>
+              <div class="text-sm mt-1">🇯🇴 Jordan <b class="text-yellow-400">3</b> — <b class="text-white">2</b> Hong Kong 🇭🇰</div>
+              <div class="text-sm text-yellow-400 mt-1">🏆 برنده: 🇯🇴 Jordan!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone Mockup -->
+      <div>
+        <div class="phone-mockup glow-green">
+          <div class="text-center text-xs text-gray-500 mb-3">📱 شبیه‌ساز ربات</div>
+          <div id="phone-screen" class="space-y-2 min-h-[400px]">
+            <!-- Dynamic content -->
+            <div class="chat-bubble-bot">
+              ⚽ <b>شما به یک مسابقه دعوت شده‌اید!</b><br/><br/>
+              🇯🇴 <b>Jordan</b><br/>
+              🆚<br/>
+              🇭🇰 <b>Hong Kong</b><br/><br/>
+              🎲 ابتدا بازی سنگ کاغذ قیچی را انجام دهید
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <span class="inline-btn">🪨 سنگ</span>
+              <span class="inline-btn">📄 کاغذ</span>
+              <span class="inline-btn">✂️ قیچی</span>
+            </div>
+            <div class="chat-bubble-player" style="font-size:12px;">🪨 سنگ انتخاب شد</div>
+            <div class="chat-bubble-bot">
+              ⏳ انتخاب شما ثبت شد!<br/>منتظر حریف هستیم...
+            </div>
+            <div class="chat-bubble-bot">
+              🎉 شما سنگ کاغذ قیچی را بردید!<br/><br/>
+              🪨 > ✂️<br/><br/>
+              ⚽ شما <b>اول شوت می‌زنید!</b>
+            </div>
+            <div class="chat-bubble-bot">
+              ⚽ <b>Round 1 — نوبت شوت زدن شماست!</b><br/><br/>
+              📊 <b>FORM</b><br/>
+              🇯🇴 JORDAN<br/>
+              ⚪⚪⚪⚪⚪<br/>
+              🇭🇰 HONG KONG<br/>
+              ⚪⚪⚪⚪⚪<br/><br/>
+              👇 جهت شوت خود را انتخاب کنید:
+            </div>
+            <div class="flex gap-2 flex-wrap">
+              <span class="inline-btn">⬅️ چپ</span>
+              <span class="inline-btn">⬆️ وسط</span>
+              <span class="inline-btn">➡️ راست</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ═══════════════════ GAMEPLAY FLOW ═══════════════════ -->
+  <section id="gameplay" class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-black text-center mb-2">🔄 جریان بازی</h2>
+    <p class="text-gray-400 text-center mb-10">از ایجاد مسابقه تا اعلام برنده</p>
+
+    <div class="relative">
+      <!-- Timeline -->
+      <div class="absolute right-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-green-500 to-purple-500 hidden md:block"></div>
+
+      <div class="space-y-8">
+        <!-- Step 1 -->
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="md:w-1/2 text-right md:pr-8">
+            <div class="card p-5 glow-green">
+              <div class="text-2xl mb-2">➕</div>
+              <h3 class="font-bold text-white">۱. ایجاد مسابقه</h3>
+              <p class="text-gray-400 text-sm mt-1">ادمین از پنل ادمین، دو بازیکن را انتخاب می‌کند. ربات مسابقه را می‌سازد و هر دو بازیکن را در پیوی خبردار می‌کند.</p>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center text-black font-bold z-10 hidden md:flex flex-shrink-0">۱</div>
+          <div class="md:w-1/2 md:pl-8 hidden md:block"></div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="md:w-1/2 md:pr-8 hidden md:block"></div>
+          <div class="w-8 h-8 rounded-full bg-yellow-500 flex items-center justify-center text-black font-bold z-10 hidden md:flex flex-shrink-0">۲</div>
+          <div class="md:w-1/2 md:pl-8">
+            <div class="card p-5 glow-amber">
+              <div class="text-2xl mb-2">🎲</div>
+              <h3 class="font-bold text-white">۲. سنگ کاغذ قیچی</h3>
+              <p class="text-gray-400 text-sm mt-1">هر دو بازیکن از طریق دکمه‌های inline انتخاب می‌کنند. برنده اول شوت می‌زند. در صورت تساوی، دوباره.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="md:w-1/2 text-right md:pr-8">
+            <div class="card p-5">
+              <div class="text-2xl mb-2">⚽</div>
+              <h3 class="font-bold text-white">۳. دورهای پنالتی</h3>
+              <p class="text-gray-400 text-sm mt-1">۵ دور متناوب. شوتزننده و دروازه‌بان بدون دیدن انتخاب هم، جهت می‌دهند. جهت یکسان = سیو. مختلف = گل.</p>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-black font-bold z-10 hidden md:flex flex-shrink-0">۳</div>
+          <div class="md:w-1/2 md:pl-8 hidden md:block"></div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="md:w-1/2 md:pr-8 hidden md:block"></div>
+          <div class="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center text-black font-bold z-10 hidden md:flex flex-shrink-0">۴</div>
+          <div class="md:w-1/2 md:pl-8">
+            <div class="card p-5 glow-red">
+              <div class="text-2xl mb-2">⚡</div>
+              <h3 class="font-bold text-white">۴. Sudden Death</h3>
+              <p class="text-gray-400 text-sm mt-1">در صورت تساوی بعد از ۵ دور، Sudden Death شروع می‌شود. هر گل یا سیو برنده را مشخص می‌کند.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="flex flex-col md:flex-row items-center gap-6">
+          <div class="md:w-1/2 text-right md:pr-8">
+            <div class="card p-5 glow-purple">
+              <div class="text-2xl mb-2">🏆</div>
+              <h3 class="font-bold text-white">۵. پایان خودکار</h3>
+              <p class="text-gray-400 text-sm mt-1">آمار به‌روزرسانی، جدول لیگ محاسبه، نتیجه در کانال منتشر و هر دو بازیکن مطلع می‌شوند.</p>
+            </div>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-black font-bold z-10 hidden md:flex flex-shrink-0">۵</div>
+          <div class="md:w-1/2 md:pl-8 hidden md:block"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ═══════════════════ LIVE LEAGUE TABLE ═══════════════════ -->
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-black text-center mb-2">🏆 نمونه جدول لیگ</h2>
+    <p class="text-gray-400 text-center mb-6">همانطور که ربات نمایش می‌دهد</p>
+
+    <div class="card max-w-2xl mx-auto overflow-hidden">
+      <div class="p-4 border-b border-gray-700" style="background: linear-gradient(135deg, #065f46, #064e3b);">
+        <div class="text-center font-bold text-white">🏆 جدول لیگ Penalty League Mobin</div>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-gray-400 text-xs border-b border-gray-700">
+              <th class="p-3 text-right">رتبه</th>
+              <th class="p-3 text-right">تیم</th>
+              <th class="p-3 text-center">بازی</th>
+              <th class="p-3 text-center">برد</th>
+              <th class="p-3 text-center">مساوی</th>
+              <th class="p-3 text-center">باخت</th>
+              <th class="p-3 text-center">GD</th>
+              <th class="p-3 text-center font-bold text-white">Pts</th>
+            </tr>
+          </thead>
+          <tbody id="league-table-body">
+            <!-- Populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ═══════════════════ PROJECT STRUCTURE ═══════════════════ -->
+  <section id="structure" class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-black text-center mb-2">🗂 ساختار پروژه</h2>
+    <p class="text-gray-400 text-center mb-10">معماری ماژولار و مقیاس‌پذیر</p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- File Tree -->
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+          <span>📁</span> ساختار فایل‌ها
+        </h3>
+        <div class="code-block p-4 text-xs overflow-y-auto max-h-80" style="color: #e2e8f0;">
+          <div class="text-yellow-400">📦 telegram_bot/</div>
+          <div class="mr-4 text-blue-300">├── 📄 main.py <span class="text-gray-500">← Entry point</span></div>
+          <div class="mr-4 text-blue-300">├── 📄 config.py <span class="text-gray-500">← Settings</span></div>
+          <div class="mr-4 text-blue-300">├── 📄 database.py <span class="text-gray-500">← SQLite queries</span></div>
+          <div class="mr-4 text-blue-300">├── 📄 models.py <span class="text-gray-500">← Enums & dataclasses</span></div>
+          <div class="mr-4 text-yellow-400">├── 📁 handlers/</div>
+          <div class="mr-8 text-green-300">├── admin.py <span class="text-gray-500">← Admin panel</span></div>
+          <div class="mr-8 text-green-300">├── player.py <span class="text-gray-500">← Player panel</span></div>
+          <div class="mr-8 text-green-300">├── match.py <span class="text-gray-500">← Penalty directions</span></div>
+          <div class="mr-8 text-green-300">├── rps.py <span class="text-gray-500">← Rock-Paper-Scissors</span></div>
+          <div class="mr-8 text-green-300">├── league.py <span class="text-gray-500">← League commands</span></div>
+          <div class="mr-8 text-green-300">└── channel.py <span class="text-gray-500">← Channel posts</span></div>
+          <div class="mr-4 text-yellow-400">├── 📁 services/</div>
+          <div class="mr-8 text-purple-300">├── match_engine.py <span class="text-gray-500">← Core logic</span></div>
+          <div class="mr-8 text-purple-300">├── league_service.py <span class="text-gray-500">← Rankings</span></div>
+          <div class="mr-8 text-purple-300">├── player_service.py <span class="text-gray-500">← Player CRUD</span></div>
+          <div class="mr-8 text-purple-300">└── channel_service.py <span class="text-gray-500">← Auto-publish</span></div>
+          <div class="mr-4 text-yellow-400">└── 📁 utils/</div>
+          <div class="mr-8 text-red-300">├── keyboards.py <span class="text-gray-500">← All keyboards</span></div>
+          <div class="mr-8 text-red-300">├── texts.py <span class="text-gray-500">← Persian texts</span></div>
+          <div class="mr-8 text-red-300">└── states.py <span class="text-gray-500">← FSM states</span></div>
+          <div class="mt-2 text-yellow-400">📄 requirements.txt</div>
+          <div class="text-yellow-400">📄 .env.example</div>
+          <div class="text-yellow-400">📄 README.md</div>
+        </div>
+      </div>
+
+      <!-- Database Schema -->
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+          <span>🗄️</span> جداول پایگاه داده
+        </h3>
+        <div class="space-y-3">
+          <div class="bg-gray-900 rounded-lg p-3 border border-gray-700">
+            <div class="text-green-400 font-mono text-xs font-bold mb-1">players</div>
+            <div class="text-xs text-gray-400">id, username, team_name, team_flag, matches_played, wins, losses, goals_scored, saves_made, win_streak ...</div>
+          </div>
+          <div class="bg-gray-900 rounded-lg p-3 border border-gray-700">
+            <div class="text-blue-400 font-mono text-xs font-bold mb-1">matches</div>
+            <div class="text-xs text-gray-400">id, player1_id, player2_id, status, player1_rps, rps_winner_id, current_round, player1_score ...</div>
+          </div>
+          <div class="bg-gray-900 rounded-lg p-3 border border-gray-700">
+            <div class="text-purple-400 font-mono text-xs font-bold mb-1">rounds</div>
+            <div class="text-xs text-gray-400">id, match_id, round_number, shooter_id, goalkeeper_id, shooter_direction, result, is_sudden_death ...</div>
+          </div>
+          <div class="bg-gray-900 rounded-lg p-3 border border-gray-700">
+            <div class="text-yellow-400 font-mono text-xs font-bold mb-1">league</div>
+            <div class="text-xs text-gray-400">player_id, played, wins, draws, losses, goals_for, goals_against, points</div>
+          </div>
+          <div class="bg-gray-900 rounded-lg p-3 border border-gray-700">
+            <div class="text-red-400 font-mono text-xs font-bold mb-1">statistics + admins + settings</div>
+            <div class="text-xs text-gray-400">آمار دقیق، مدیریت ادمین‌ها، تنظیمات سیستمی</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ═══════════════════ DEPLOY ═══════════════════ -->
+  <section id="deploy" class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-black text-center mb-2">🚀 راه‌اندازی</h2>
+    <p class="text-gray-400 text-center mb-10">در کمتر از ۵ دقیقه</p>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Local Setup -->
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+          <span class="text-2xl">💻</span> محلی (توسعه)
+        </h3>
+        <div class="space-y-3">
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs text-gray-400">۱. نصب پیش‌نیازها</span>
+              <button class="copy-btn" onclick="copyCode(this, 'pip install -r requirements.txt')">کپی</button>
+            </div>
+            <div class="code-block p-3 text-green-400 text-xs">pip install -r requirements.txt</div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs text-gray-400">۲. تنظیم محیط</span>
+              <button class="copy-btn" onclick="copyCode(this, 'cp .env.example .env')">کپی</button>
+            </div>
+            <div class="code-block p-3 text-green-400 text-xs">cp .env.example .env<br/># ویرایش .env با اطلاعات ربات</div>
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-xs text-gray-400">۳. اجرا</span>
+              <button class="copy-btn" onclick="copyCode(this, 'python -m telegram_bot.main')">کپی</button>
+            </div>
+            <div class="code-block p-3 text-green-400 text-xs">python -m telegram_bot.main</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Render Deploy -->
+      <div class="card p-5 glow-green">
+        <h3 class="font-bold text-white mb-4 flex items-center gap-2">
+          <span class="text-2xl">☁️</span> Render (تولید)
+        </h3>
+        <div class="space-y-2">
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 font-bold text-lg leading-none">۱</span>
+            <p class="text-sm text-gray-300">پروژه را روی GitHub قرار دهید</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 font-bold text-lg leading-none">۲</span>
+            <p class="text-sm text-gray-300">در <b>render.com</b> یک Web Service جدید بسازید</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 font-bold text-lg leading-none">۳</span>
+            <div>
+              <p class="text-sm text-gray-300">Build Command:</p>
+              <div class="code-block p-2 text-xs text-green-400 mt-1">pip install -r requirements.txt</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 font-bold text-lg leading-none">۴</span>
+            <div>
+              <p class="text-sm text-gray-300">Start Command:</p>
+              <div class="code-block p-2 text-xs text-green-400 mt-1">python -m telegram_bot.main</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="text-green-400 font-bold text-lg leading-none">۵</span>
+            <p class="text-sm text-gray-300">متغیرهای محیطی را اضافه کنید (BOT_TOKEN, CHANNEL_ID, ADMIN_IDS, BOT_MODE=webhook)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Env Variables Table -->
+    <div class="card mt-6 overflow-hidden">
+      <div class="p-4 border-b border-gray-700">
+        <h3 class="font-bold text-white">⚙️ متغیرهای محیطی (.env)</h3>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead>
+            <tr class="text-gray-400 text-xs border-b border-gray-700 bg-gray-900">
+              <th class="p-3 text-right">متغیر</th>
+              <th class="p-3 text-right">مقدار نمونه</th>
+              <th class="p-3 text-right">توضیح</th>
+              <th class="p-3 text-center">اجباری</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-800">
+            <tr class="hover:bg-gray-900">
+              <td class="p-3 font-mono text-green-400 text-xs">BOT_TOKEN</td>
+              <td class="p-3 font-mono text-gray-400 text-xs">123:ABCxyz...</td>
+              <td class="p-3 text-xs text-gray-300">توکن ربات از BotFather</td>
+              <td class="p-3 text-center"><span class="badge" style="background:#7f1d1d;color:#fca5a5;">✓ بله</span></td>
+            </tr>
+            <tr class="hover:bg-gray-900">
+              <td class="p-3 font-mono text-green-400 text-xs">CHANNEL_ID</td>
+              <td class="p-3 font-mono text-gray-400 text-xs">@mychannel</td>
+              <td class="p-3 text-xs text-gray-300">آیدی کانال برای انتشار نتایج</td>
+              <td class="p-3 text-center"><span class="badge" style="background:#7f1d1d;color:#fca5a5;">✓ بله</span></td>
+            </tr>
+            <tr class="hover:bg-gray-900">
+              <td class="p-3 font-mono text-green-400 text-xs">ADMIN_IDS</td>
+              <td class="p-3 font-mono text-gray-400 text-xs">123456789</td>
+              <td class="p-3 text-xs text-gray-300">آیدی ادمین‌ها (با کاما جدا)</td>
+              <td class="p-3 text-center"><span class="badge" style="background:#7f1d1d;color:#fca5a5;">✓ بله</span></td>
+            </tr>
+            <tr class="hover:bg-gray-900">
+              <td class="p-3 font-mono text-yellow-400 text-xs">BOT_MODE</td>
+              <td class="p-3 font-mono text-gray-400 text-xs">webhook</td>
+              <td class="p-3 text-xs text-gray-300">polling (محلی) یا webhook (Render)</td>
+              <td class="p-3 text-center"><span class="badge" style="background:#1c3a1c;color:#86efac;">✓ نه</span></td>
+            </tr>
+            <tr class="hover:bg-gray-900">
+              <td class="p-3 font-mono text-yellow-400 text-xs">WEBHOOK_HOST</td>
+              <td class="p-3 font-mono text-gray-400 text-xs">https://app.onrender.com</td>
+              <td class="p-3 text-xs text-gray-300">آدرس Render در حالت webhook</td>
+              <td class="p-3 text-center"><span class="badge" style="background:#1c3a1c;color:#86efac;">✓ نه</span></td>
+            </tr>
+            <tr class="hover:bg-gray-900">
+              <td class="p-3 font-mono text-yellow-400 text-xs">DEFAULT_ROUNDS</td>
+              <td class="p-3 font-mono text-gray-400 text-xs">5</td>
+              <td class="p-3 text-xs text-gray-300">تعداد دور پیش‌فرض هر مسابقه</td>
+              <td class="p-3 text-center"><span class="badge" style="background:#1c3a1c;color:#86efac;">✓ نه</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ═══════════════════ COMMANDS ═══════════════════ -->
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-black text-center mb-10">📝 دستورات ربات</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-4">👥 دستورات بازیکنان</h3>
+        <div class="space-y-2">
+          <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700">
+            <code class="text-green-400 text-sm font-mono">/start</code>
+            <span class="text-gray-400 text-sm">شروع / پنل اصلی</span>
+          </div>
+          <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700">
+            <code class="text-green-400 text-sm font-mono">/help</code>
+            <span class="text-gray-400 text-sm">راهنمای ربات</span>
+          </div>
+          <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700">
+            <code class="text-green-400 text-sm font-mono">/stats</code>
+            <span class="text-gray-400 text-sm">آمار شخصی</span>
+          </div>
+          <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700">
+            <code class="text-green-400 text-sm font-mono">/league</code>
+            <span class="text-gray-400 text-sm">جدول لیگ</span>
+          </div>
+          <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700">
+            <code class="text-green-400 text-sm font-mono">/table</code>
+            <span class="text-gray-400 text-sm">جدول لیگ (مختصر)</span>
+          </div>
+        </div>
+      </div>
+      <div class="card p-5">
+        <h3 class="font-bold text-white mb-4">⚙️ دستورات ادمین</h3>
+        <div class="space-y-2">
+          <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700">
+            <code class="text-yellow-400 text-sm font-mono">/admin</code>
+            <span class="text-gray-400 text-sm">پنل مدیریت</span>
+          </div>
+          <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700">
+            <code class="text-yellow-400 text-sm font-mono">/post_league</code>
+            <span class="text-gray-400 text-sm">انتشار جدول لیگ در کانال</span>
+          </div>
+          <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700">
+            <code class="text-yellow-400 text-sm font-mono">/post_message</code>
+            <span class="text-gray-400 text-sm">انتشار پیام دلخواه در کانال</span>
+          </div>
+        </div>
+        <div class="mt-4 p-3 rounded-lg border border-yellow-800" style="background: rgba(234,179,8,0.05);">
+          <div class="text-xs text-yellow-400">💡 پنل ادمین — دکمه‌های Inline</div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="inline-btn text-xs">➕ مسابقه جدید</span>
+            <span class="inline-btn text-xs">👥 بازیکنان</span>
+            <span class="inline-btn text-xs">🏆 لیگ</span>
+            <span class="inline-btn text-xs">📊 آمار</span>
+            <span class="inline-btn text-xs">📢 اطلاعیه</span>
+            <span class="inline-btn text-xs">⚙️ تنظیمات</span>
+            <span class="inline-btn text-xs">⛔ لغو مسابقه</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ═══════════════════ TECH DETAILS ═══════════════════ -->
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <h2 class="text-3xl font-black text-center mb-10">🔧 جزئیات فنی</h2>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="card p-5">
+        <div class="text-2xl mb-3">🔒</div>
+        <h3 class="font-bold text-white mb-3">امنیت</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> قفل async per-match</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> تأیید نقش (شوتزننده/دروازه‌بان)</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> جلوگیری از کلیک مضاعف</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> زمان‌سنج RPS و هر دور</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> فقط بازیکنان ثبت‌نام‌شده</li>
+          <li class="flex items-center gap-2"><span class="text-green-400">✓</span> فقط ادمین‌ها می‌سازند</li>
+        </ul>
+      </div>
+      <div class="card p-5">
+        <div class="text-2xl mb-3">⚡</div>
+        <h3 class="font-bold text-white mb-3">عملکرد</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> Async SQLite (aiosqlite)</li>
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> Connection singleton</li>
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> WAL mode فعال</li>
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> FSM با MemoryStorage</li>
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> asyncio tasks برای timeout</li>
+          <li class="flex items-center gap-2"><span class="text-blue-400">✓</span> Router-based architecture</li>
+        </ul>
+      </div>
+      <div class="card p-5">
+        <div class="text-2xl mb-3">🏗️</div>
+        <h3 class="font-bold text-white mb-3">معماری</h3>
+        <ul class="space-y-2 text-sm text-gray-400">
+          <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> Aiogram Routers</li>
+          <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> FSM States</li>
+          <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> Type Hints کامل</li>
+          <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> Enums & Dataclasses</li>
+          <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> Dependency Injection</li>
+          <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> PEP8 / Clean Code</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider max-w-7xl mx-auto"></div>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="max-w-7xl mx-auto px-4 py-8 text-center">
+    <div class="text-3xl mb-3">⚽</div>
+    <div class="text-white font-bold mb-1">Penalty League Mobin</div>
+    <div class="text-gray-400 text-sm mb-4">ساخته شده با Python + Aiogram + ❤️</div>
+    <div class="flex flex-wrap justify-center gap-2">
+      <span class="badge" style="background:#064e3b; color:#10b981;">Python 3.11</span>
+      <span class="badge" style="background:#1e3a5f; color:#60a5fa;">Aiogram 3.13+</span>
+      <span class="badge" style="background:#1a1a2e; color:#a78bfa;">SQLite</span>
+      <span class="badge" style="background:#3b1a08; color:#fb923c;">Render</span>
+    </div>
+  </footer>
+
+  <script>
+    // ═══════════════════════════════════════════════════════
+    // DEMO TABS
+    // ═══════════════════════════════════════════════════════
+    function showDemo(tab) {
+      ['rps', 'shoot', 'form', 'channel'].forEach(t => {
+        document.getElementById(`demo-${t}`).classList.add('hidden');
+        document.getElementById(`tab-${t}`).classList.remove('active');
+        document.getElementById(`tab-${t}`).classList.add('text-gray-400');
+      });
+      document.getElementById(`demo-${tab}`).classList.remove('hidden');
+      document.getElementById(`tab-${tab}`).classList.add('active');
+      document.getElementById(`tab-${tab}`).classList.remove('text-gray-400');
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // RPS DEMO
+    // ═══════════════════════════════════════════════════════
+    const rpsWins = { rock: 'scissors', scissors: 'paper', paper: 'rock' };
+    const rpsLabels = { rock: '🪨 سنگ', paper: '📄 کاغذ', scissors: '✂️ قیچی' };
+    const rpsNames = { rock: 'سنگ', paper: 'کاغذ', scissors: 'قیچی' };
+
+    function pickRPS(choice, btn) {
+      document.querySelectorAll('.rps-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      // Simulate opponent
+      const choices = ['rock', 'paper', 'scissors'];
+      const oppChoice = choices[Math.floor(Math.random() * 3)];
+      const resultEl = document.getElementById('rps-result');
+
+      setTimeout(() => {
+        let resultText = '';
+        if (choice === oppChoice) {
+          resultText = `🔄 <b class="text-yellow-400">مساوی!</b><br/>هر دو ${rpsLabels[choice]} انتخاب کردند. دوباره!`;
+          setTimeout(() => {
+            document.querySelectorAll('.rps-btn').forEach(b => b.classList.remove('selected'));
+            resultEl.innerHTML = '<span class="text-gray-500">دوباره انتخاب کنید...</span>';
+          }, 2000);
+        } else if (rpsWins[choice] === oppChoice) {
+          resultText = `🎉 <b class="text-green-400">شما بردید!</b><br/>${rpsLabels[choice]} > ${rpsLabels[oppChoice]}<br/>⚽ <b>شما اول شوت می‌زنید!</b>`;
+        } else {
+          resultText = `😔 <b class="text-red-400">حریف برد!</b><br/>${rpsLabels[oppChoice]} > ${rpsLabels[choice]}<br/>🥅 <b>شما اول دروازه‌بانی می‌کنید.</b>`;
+        }
+        resultEl.innerHTML = resultText;
+      }, 600);
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // DIRECTION DEMO
+    // ═══════════════════════════════════════════════════════
+    const dirLabels = { left: 'چپ ⬅️', center: 'وسط ⬆️', right: 'راست ➡️' };
+    let shooterChose = null;
+
+    function pickDir(dir, btn, role) {
+      const allBtns = btn.parentElement.querySelectorAll('.dir-btn');
+      allBtns.forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+
+      const resultEl = document.getElementById('shoot-result');
+      const oppDirs = ['left', 'center', 'right'];
+      const oppDir = oppDirs[Math.floor(Math.random() * 3)];
+
+      setTimeout(() => {
+        if (dir === oppDir) {
+          resultEl.innerHTML = `🧤 <b class="text-blue-400">سیو شد!</b><br/>هر دو طرف ${dirLabels[dir]} رفتند.`;
+        } else {
+          resultEl.innerHTML = `⚽ <b class="text-green-400">گللللل!</b><br/>شوت ${dirLabels[dir]} — دروازه‌بان ${dirLabels[oppDir]} رفت.`;
+        }
+      }, 700);
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // LEAGUE TABLE
+    // ═══════════════════════════════════════════════════════
+    const leagueData = [
+      { rank: 1, flag: '🇧🇷', team: 'Brazil',    p: 8, w: 6, d: 1, l: 1, gf: 18, ga: 8,  pts: 19 },
+      { rank: 2, flag: '🇮🇷', team: 'Iran',       p: 8, w: 5, d: 2, l: 1, gf: 15, ga: 9,  pts: 17 },
+      { rank: 3, flag: '🇦🇷', team: 'Argentina',  p: 7, w: 4, d: 2, l: 1, gf: 14, ga: 7,  pts: 14 },
+      { rank: 4, flag: '🇩🇪', team: 'Germany',    p: 7, w: 4, d: 1, l: 2, gf: 13, ga: 10, pts: 13 },
+      { rank: 5, flag: '🇫🇷', team: 'France',     p: 6, w: 3, d: 2, l: 1, gf: 11, ga: 8,  pts: 11 },
+      { rank: 6, flag: '🇵🇹', team: 'Portugal',   p: 6, w: 3, d: 1, l: 2, gf: 10, ga: 9,  pts: 10 },
+      { rank: 7, flag: '🇯🇴', team: 'Jordan',     p: 5, w: 2, d: 2, l: 1, gf: 8,  ga: 7,  pts: 8  },
+      { rank: 8, flag: '🇭🇰', team: 'Hong Kong',  p: 5, w: 1, d: 1, l: 3, gf: 5,  ga: 12, pts: 4  },
+    ];
+
+    const medals = ['🥇', '🥈', '🥉', ' 4', ' 5', ' 6', ' 7', ' 8'];
+
+    function renderLeagueTable() {
+      const tbody = document.getElementById('league-table-body');
+      tbody.innerHTML = '';
+      leagueData.forEach((row, i) => {
+        const gd = row.gf - row.ga;
+        const gdStr = gd >= 0 ? `+${gd}` : `${gd}`;
+        const isTop = i === 0;
+        const tr = document.createElement('tr');
+        tr.className = 'league-row border-b border-gray-800 transition-colors' + (isTop ? ' bg-opacity-10' : '');
+        if (isTop) tr.style.background = 'rgba(16,185,129,0.05)';
+        tr.innerHTML = `
+          <td class="p-3 text-lg">${medals[i]}</td>
+          <td class="p-3">
+            <div class="flex items-center gap-2">
+              <span class="text-xl">${row.flag}</span>
+              <span class="text-white text-sm font-semibold">${row.team}</span>
+            </div>
+          </td>
+          <td class="p-3 text-center text-gray-400 text-sm">${row.p}</td>
+          <td class="p-3 text-center text-green-400 text-sm font-semibold">${row.w}</td>
+          <td class="p-3 text-center text-yellow-400 text-sm">${row.d}</td>
+          <td class="p-3 text-center text-red-400 text-sm">${row.l}</td>
+          <td class="p-3 text-center text-sm ${gd >= 0 ? 'text-green-400' : 'text-red-400'}">${gdStr}</td>
+          <td class="p-3 text-center">
+            <span class="font-black text-white text-sm bg-gray-700 px-2 py-1 rounded">${row.pts}</span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // COPY BUTTON
+    // ═══════════════════════════════════════════════════════
+    function copyCode(btn, text) {
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = '✓ کپی شد';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'کپی';
+          btn.classList.remove('copied');
+        }, 2000);
+      }).catch(() => {
+        btn.textContent = '✗ خطا';
+      });
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // ANIMATE STATS ON SCROLL
+    // ═══════════════════════════════════════════════════════
+    function animateNumber(el, target, duration = 1500) {
+      const start = 0;
+      const startTime = performance.now();
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(start + (target - start) * eased) + (el.dataset.suffix || '');
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    // ═══════════════════════════════════════════════════════
+    // SMOOTH SCROLL
+    // ═══════════════════════════════════════════════════════
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // ═══════════════════════════════════════════════════════
+    // INIT
+    // ═══════════════════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', () => {
+      renderLeagueTable();
+    });
+  </script>
+</body>
+</html>
