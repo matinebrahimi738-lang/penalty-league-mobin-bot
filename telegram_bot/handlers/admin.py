@@ -199,6 +199,9 @@ async def admin_confirm_match(callback: CallbackQuery, state: FSMContext, bot: B
     await callback.answer()
 
     parts = callback.data.split(":", 3)
+
+    logger.info(f"CALLBACK DATA = {callback.data}")
+
     match_data = parts[2] if len(parts) > 2 else ""
     ids = match_data.split(":")
     if len(ids) != 2:
