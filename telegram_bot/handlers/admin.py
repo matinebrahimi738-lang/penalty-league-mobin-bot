@@ -198,18 +198,17 @@ async def admin_confirm_match(callback: CallbackQuery, state: FSMContext, bot: B
         return
     await callback.answer()
 
-    parts = callback.data.split(":", 3)
+    parts = callback.data.split(":")
 
     logger.info(f"CALLBACK DATA = {callback.data}")
 
-    match_data = parts[2] if len(parts) > 2 else ""
-    ids = match_data.split(":")
-    if len(ids) != 2:
+    if len(parts) != 4:
         await callback.message.edit_text(texts.ERROR_GENERIC)
         await state.clear()
         return
 
-    p1_id, p2_id = int(ids[0]), int(ids[1])
+    p1_id = int(parts[2])
+    p2_id = int(parts[3])
     data = await state.get_data()
 
     ok, reason, match_id = await match_engine.create_match(
